@@ -43,6 +43,9 @@ class KnowledgeBase:
         clauses: List of (entity, frozenset(cards)) for "at least one" constraints
     """
 
+    # Class-level annotation for clauses to satisfy static analyzers
+    clauses: list[tuple[str, frozenset[str]]] | None = None
+
     def __init__(
         self,
         player_names: list[str],
@@ -59,7 +62,7 @@ class KnowledgeBase:
         self.has_card = {(entity, card): None for entity in self.entities for card in ALL_CARDS}
 
         # Each clause means "entity has at least one of these cards".
-        self.clauses = []
+        self.clauses: list[tuple[str, frozenset[str]]] = []
 
         self._initialize(my_cards)
 

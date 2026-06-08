@@ -60,13 +60,19 @@ class GameEngine:
         pending_suggestion: Current suggestion awaiting responses
     """
 
+    # Class-level annotations to satisfy static analyzers (initialized in __init__)
+    log: list[dict[str, str]] | None = None
+    solution: dict[str, str] | None = None
+    game_over: bool | None = None
+    winner: str | None = None
+
     def __init__(self, human_name: str = "You", num_bots: int = 3) -> None:
         self.human_name = human_name
         self.num_bots = max(1, min(num_bots, 5))  # 1-5 bots
-        self.log = []  # event log for UI
-        self.game_over = False
-        self.winner = None
-        self.solution = {}
+        self.log: list[dict[str, str]] = []  # event log for UI
+        self.game_over: bool = False
+        self.winner: str | None = None
+        self.solution: dict[str, str] = {}
 
         self._setup_game()
 
