@@ -19,6 +19,11 @@ const state = {
 };
 
 const cardLabels = { suspect: "SUSPECT", weapon: "WEAPON", room: "ROOM" };
+const noteGlyphs = { known: "◆", ruled: "×", unknown: "·" };
+
+function roomClass(room) {
+  return `room-${room.toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/^-|-$/g, "")}`;
+}
 
 function escapeHtml(value) {
   return String(value).replace(/[&<>"']/g, (char) => {
@@ -155,7 +160,7 @@ function renderBoard() {
             const players = roomPlayers[room] || [];
             const humanHere = rooms[state.game.humanName] === room;
             return `
-              <article class="room ${humanHere ? "current-room" : ""}">
+              <article class="room ${roomClass(room)} ${humanHere ? "current-room" : ""}">
                 <span class="room-accent"></span>
                 <h3>${escapeHtml(room)}</h3>
                 <div class="tokens">
@@ -320,13 +325,14 @@ function renderNotebook() {
             .map((name) => {
               if (!state.showBotCards) return "<span></span>";
               const value = game.players[name].kb.get(name, card);
-              return `<span class="${value === true ? "known" : value === false ? "ruled" : "unknown"}">${value === true ? "Y" : value === false ? "x" : "."}</span>`;
+          const status = value === true ? "known" : value === false ? "ruled" : "unknown";
+          return `<span class="${status}">${noteGlyphs[status]}</span>`;
             })
             .join("");
           return `
             <button class="note-row" type="button" data-card="${escapeHtml(card)}"${mark === "known" ? " disabled" : ""}>
               <span>${escapeHtml(card)}</span>
-              <span class="${mark}">${mark === "known" ? "Y" : mark === "ruled" ? "x" : "."}</span>
+              <span class="${mark}">${noteGlyphs[mark]}</span>
               ${botCells}
             </button>
           `;
@@ -338,7 +344,7 @@ function renderNotebook() {
     <section class="panel notebook">
       <h2>Detective Notebook</h2>
       <div class="note-head"><span></span><span>YOU</span>${botHeaders}</div>
-      <div class="note-legend">Y known&nbsp;&nbsp; x ruled out&nbsp;&nbsp; . unknown</div>
+      <div class="note-legend">◆ known&nbsp;&nbsp; × ruled out&nbsp;&nbsp; · unknown</div>
       ${rows}
     </section>
   `;
