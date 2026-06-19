@@ -1,14 +1,26 @@
-# Clue — (Python / Tkinter)
+# Clue - Luxury Noir
 
-Single-player Clue-style game against AI bots: a **constraint-based knowledge engine**, deterministic bot policy, and a **Tkinter** UI (“Luxury Noir” theme).
+Single-player Clue-style game against AI bots: a **constraint-based knowledge engine**,
+deterministic bot policy, a local **Tkinter** desktop UI, and a static
+**GitHub Pages edition** for instant browser play.
+
+## Play Online
+
+Open the GitHub Pages edition:
+
+**https://fewblue04.github.io/Clue-2/**
+
+The browser version runs entirely as static HTML, CSS, and JavaScript. There is
+no server, install step, or download required.
 
 ## Requirements
 
-- Python **3.10+**
-- **Running the game** uses only the Python standard library (no `pip install` required).
+- **Play online**: any modern browser.
+- **Run locally**: Python **3.10+**.
+- **Running the desktop game** uses only the Python standard library (no `pip install` required).
 - **Running tests** requires [pytest](https://pytest.org/) (see Development).
 
-## Run
+## Run Locally
 
 From this directory:
 
@@ -16,7 +28,8 @@ From this directory:
 python main.py
 ```
 
-`main.py` adds the project root to `sys.path` and starts the UI via `clue_game.app`.
+`main.py` adds the project root to `sys.path` and starts the desktop UI via
+`clue_game.app`.
 
 ## Tests
 
@@ -24,7 +37,8 @@ python main.py
 python -m pytest tests -q
 ```
 
-Run this after changes to the engine, bot, or knowledge base. If you add continuous integration (e.g. GitHub Actions), use the same command there so local checks match CI.
+Run this after changes to the engine, bot, or knowledge base. If you add
+continuous integration, use the same command there so local checks match CI.
 
 ## Imports
 
@@ -34,24 +48,27 @@ All application code lives in the **`clue_game`** package. Examples:
 - `from clue_game.bot import BotPlayer`
 - `from clue_game.cards import ROOMS, SUSPECTS`
 
-Scripts at the project root (`main.py`, `simulate.py`) add the root to `sys.path` so `clue_game` resolves when you run them from this folder.
+Scripts at the project root (`main.py`, `simulate.py`) add the root to
+`sys.path` so `clue_game` resolves when you run them from this folder.
 
 ## Layout
 
 | Area | Role |
 |------|------|
-| `clue_game/` | Single package: game rules, cards/constants, bot, knowledge base, state tracker, Tk UI |
-| `clue_game/app.py` | Tk UI (`ClueApp`) |
-| `clue_game/game.py` | Rules engine (`GameEngine`), event log |
+| `index.html` | GitHub Pages entrypoint for the browser-playable edition |
+| `web/` | Static browser edition: JavaScript game logic, DOM UI, and CSS |
+| `clue_game/` | Python package: rules, cards/constants, bot, knowledge base, state tracker, Tk UI |
+| `clue_game/app.py` | Tkinter desktop UI (`ClueApp`) |
+| `clue_game/game.py` | Python rules engine (`GameEngine`), event log |
 | `clue_game/bot.py` / `clue_game/knowledge_base.py` | Bot policy and CSP-style deductions |
 | `clue_game/cards.py` | Suspects, weapons, rooms, map adjacency |
-| `main.py` | Entry point |
+| `main.py` | Desktop entrypoint |
 | `simulate.py` | Headless trials for bot evaluation |
-| `docs/clue-bot-engineering-spec.md` | Design notes |
+| `docs/` | Architecture, feature, and logic documentation |
 
 ## Development (optional)
 
-Install dev tools (once per environment):
+Install dev tools once per environment:
 
 ```bash
 pip install -e ".[dev]"
@@ -63,39 +80,45 @@ Or minimal installs:
 pip install pytest ruff
 ```
 
-- **Format / lint** (consistent style and common mistakes):
+- **Format / lint**:
 
   ```bash
   python -m ruff format .
   python -m ruff check .
   ```
 
-  (`python -m` avoids PATH issues on Windows if `ruff` is not on your shell path.) Settings live in `pyproject.toml`.
+  `python -m` avoids PATH issues on Windows if `ruff` is not on your shell path.
+  Settings live in `pyproject.toml`.
 
-- **Tests** — same as [Tests](#tests) above.
+- **Tests**: same as [Tests](#tests) above.
 
 # Clue2 Documentation
 
-This directory contains comprehensive documentation for the Clue2 project, a sophisticated implementation of the classic Clue board game featuring constraint-based AI and a themed user interface.
+This repository contains documentation for the Clue2 project, a browser-playable
+and desktop implementation of the classic Clue board game featuring
+constraint-based AI and a themed user interface.
 
 ## Documentation Structure
 
 ### Core Documentation
 
-- **[architecture-spec.md](./architecture-spec.md)** - Complete system architecture overview
-- **[features-spec.md](./features-spec.md)** - Detailed feature specifications
-- **[propositional-logic-spec.md](./propositional-logic-spec.md)** - AI logic and reasoning concepts
+- **[architecture-spec.md](./docs/architecture-spec.md)** - Complete system architecture overview
+- **[features-spec.md](./docs/features-spec.md)** - Detailed feature specifications
+- **[propositional-logic-spec.md](./docs/propositional-logic-spec.md)** - AI logic and reasoning concepts
 
 ### Quick Reference
 
 #### Architecture Overview
+
+- **GitHub Pages Edition**: Static HTML/CSS/JavaScript browser build for online play
+- **Desktop App**: Python/Tkinter local application
 - **Game Engine**: Central rules enforcement and turn management
 - **Knowledge Base**: Constraint satisfaction problem solver
 - **Bot AI**: Deterministic one-step lookahead evaluation
-- **User Interface**: Luxury Noir themed Tkinter application
 - **State Tracking**: Append-only event history system
 
 #### Key Concepts
+
 - **Propositional Logic**: Boolean constraint matrix for card knowledge
 - **Logical Propagation**: Iterative inference to logical closure
 - **Minimax Reasoning**: Worst-case opponent response evaluation
@@ -103,6 +126,7 @@ This directory contains comprehensive documentation for the Clue2 project, a sop
 - **Constraint Satisfaction**: CSP solver with multiple rule types
 
 #### AI Features
+
 - **Constraint-Based Deduction**: Automatic logical inference
 - **One-Step Lookahead**: Simulate all possible response outcomes
 - **Strategic Planning**: Balance exploration vs exploitation
@@ -110,110 +134,43 @@ This directory contains comprehensive documentation for the Clue2 project, a sop
 - **Safe Accusations**: Only accuse when solution is certain
 
 #### User Interface
+
+- **Browser Edition**: Playable directly from GitHub Pages without installing anything
 - **Luxury Noir Theme**: Sophisticated dark color scheme
 - **Interactive Board**: Room visualization with player positions
 - **Detective Notebook**: Knowledge tracking with user marks
 - **Event Logging**: Color-coded game history
-- **Responsive Controls**: Intuitive suggestion and accusation dialogs
+- **Responsive Controls**: Suggestion, movement, accusation, and reveal flows
 
 ## Getting Started
 
+### For Players
+
+1. Open **https://fewblue04.github.io/Clue-2/** to play in the browser.
+2. Use `python main.py` only if you want the local desktop version.
+
 ### For Developers
-1. Read the [architecture specification](./architecture-spec.md) to understand the system design
-2. Review the [propositional logic documentation](./propositional-logic-spec.md) for AI concepts
-3. Examine the [features specification](./features-spec.md) for implementation details
 
-### For Users
-1. Refer to the [features specification](./features-spec.md) for available functionality
-2. Check the UI sections for interface navigation and controls
-3. Review the AI sections for understanding bot behavior
-
-### For Researchers
-1. Study the [propositional logic specification](./propositional-logic-spec.md) for logical foundations
-2. Examine the constraint satisfaction implementation details
-3. Review the AI decision-making algorithms and evaluation functions
-
-## Technical Deep Dives
-
-### Knowledge Base System
-The constraint satisfaction problem solver implements:
-- Boolean matrix representation of card ownership
-- Five core inference rules for logical propagation
-- Contradiction detection and consistency checking
-- Disjunctive clause handling for unknown card shows
-
-### Bot Decision Making
-The AI system features:
-- Minimax evaluation with worst-case reasoning
-- Information-theoretic scoring functions
-- Adaptive behavior with progress tracking
-- Escape mechanisms for avoiding local optima
-
-### User Interface Design
-The Tkinter interface provides:
-- Component-based architecture with clear separation
-- Event-driven updates from game engine
-- Responsive layout with customizable panels
-- Accessibility features and keyboard navigation
+1. Read the [architecture specification](./docs/architecture-spec.md) to understand the system design.
+2. Review the [propositional logic documentation](./docs/propositional-logic-spec.md) for AI concepts.
+3. Examine the [features specification](./docs/features-spec.md) for implementation details.
 
 ## Implementation Notes
 
 ### Code Organization
+
+```text
+.
+|-- index.html          # GitHub Pages entrypoint
+|-- web/                # Static browser edition
+|-- clue_game/          # Python desktop app and core modules
+|-- docs/               # Project documentation
+|-- tests/              # Python test suite
 ```
-clue_game/
-|
-+-- app.py              # User interface and event handling
-+-- game.py             # Game engine and rules enforcement
-+-- bot.py              # AI decision making and strategy
-+-- knowledge_base.py   # Constraint satisfaction solver
-+-- cards.py            # Game constants and board layout
-+-- state_tracker.py    # Event history and game logging
-```
 
-### Key Design Patterns
-- **Observer Pattern**: UI updates from game events
-- **Strategy Pattern**: Pluggable AI decision algorithms
-- **State Pattern**: Game state management and turn flow
-- **Command Pattern**: User action handling and undo support
+### Extending the System
 
-### Performance Considerations
-- Lazy evaluation for constraint propagation
-- Incremental updates to avoid recomputation
-- Efficient data structures for knowledge representation
-- Async operations for responsive UI
-
-## Extending the System
-
-### Adding New Features
-1. Review the architecture documentation for integration points
-2. Follow the modular design patterns for new components
-3. Ensure compatibility with existing constraint system
-4. Update tests and documentation
-
-### Modifying AI Behavior
-1. Understand the propositional logic foundation
-2. Modify evaluation functions in the bot module
-3. Test with simulation framework
-4. Update AI documentation accordingly
-
-### Customizing UI
-1. Review the component hierarchy in app.py
-2. Modify color schemes and styling constants
-3. Ensure accessibility compliance
-4. Update feature documentation
-
-## Testing and Validation
-
-### Test Coverage
-- Unit tests for individual modules
-- Integration tests for component interactions
-- Simulation tests for end-to-end scenarios
-- Property tests for invariant verification
-
-### Quality Assurance
-- Consistency checking for knowledge base
-- Contradiction detection for logical validity
-- Performance monitoring for AI decisions
-- User experience testing for interface
-
-This documentation provides a comprehensive understanding of the Clue2 system, from high-level architecture to detailed implementation concepts.
+- Update `web/` when changing the GitHub Pages edition.
+- Update `clue_game/` when changing the Python desktop version.
+- Keep shared behavior documented when a gameplay rule changes in both editions.
+- Run the Python tests after engine, bot, or knowledge-base changes.

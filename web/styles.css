@@ -1,0 +1,480 @@
+:root {
+  --bg: #090807;
+  --header: #0f0d0b;
+  --panel: #16120f;
+  --panel-alt: #1e1814;
+  --card: #241d18;
+  --canvas: #0b0908;
+  --gold: #c9a84c;
+  --gold-light: #edd38a;
+  --ink: #f2ead9;
+  --text: #e4dac4;
+  --dim: #93856e;
+  --red: #b65145;
+  --green: #71b784;
+  --blue: #7ea6c7;
+  --grey: #6e655a;
+  --border: #322821;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  min-width: 320px;
+  background: var(--bg);
+  color: var(--text);
+  font-family: Georgia, "Times New Roman", serif;
+}
+
+button,
+input,
+select {
+  font: inherit;
+}
+
+button {
+  border: 0;
+  cursor: pointer;
+}
+
+button:disabled {
+  cursor: default;
+}
+
+.setup-screen {
+  min-height: 100vh;
+  display: grid;
+  place-items: center;
+  padding: 24px;
+}
+
+.setup-panel {
+  width: min(420px, 100%);
+  padding: 34px;
+  border: 1px solid var(--gold);
+  background: var(--panel);
+  text-align: center;
+}
+
+.setup-panel h1 {
+  margin: 0 0 22px;
+  color: var(--gold);
+  font-size: 48px;
+  letter-spacing: 0;
+}
+
+.kicker {
+  margin: 0 0 4px;
+  color: var(--dim);
+  font-style: italic;
+}
+
+.setup-form,
+.setup-form label {
+  display: grid;
+  gap: 12px;
+}
+
+.setup-form label {
+  text-align: left;
+  color: var(--gold);
+  font-size: 14px;
+}
+
+input,
+select {
+  width: 100%;
+  border: 1px solid var(--border);
+  background: var(--card);
+  color: var(--text);
+  padding: 10px 12px;
+}
+
+.shell {
+  min-height: 100vh;
+}
+
+.topbar {
+  height: 58px;
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  padding: 0 18px;
+  background: var(--header);
+  border-bottom: 1px solid var(--border);
+}
+
+.brand {
+  display: flex;
+  align-items: baseline;
+  gap: 12px;
+}
+
+.brand strong {
+  color: var(--gold);
+  font-size: 24px;
+}
+
+.brand span,
+.topbar p {
+  color: var(--dim);
+}
+
+.topbar p {
+  margin: 0;
+}
+
+.top-actions {
+  margin-left: auto;
+  display: flex;
+  align-items: center;
+  gap: 14px;
+}
+
+.toggle {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 14px;
+}
+
+.toggle input {
+  width: auto;
+}
+
+.workspace {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(320px, 390px);
+  gap: 10px;
+  padding: 10px;
+}
+
+.left-column,
+.right-column {
+  display: grid;
+  gap: 10px;
+  align-content: start;
+}
+
+.panel {
+  border: 1px solid var(--border);
+  background: var(--panel);
+  padding: 10px;
+}
+
+.panel h2 {
+  margin: 0 0 10px;
+  color: var(--gold);
+  font-size: 15px;
+}
+
+.panel h3 {
+  margin: 10px 0 6px;
+  color: var(--gold);
+  font-size: 13px;
+}
+
+.board {
+  min-height: 360px;
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 6px;
+  background: var(--canvas);
+  padding: 8px;
+}
+
+.room {
+  position: relative;
+  min-height: 108px;
+  border: 1px solid #4b4238;
+  background: #202018;
+  padding: 24px 10px 10px;
+}
+
+.room.current-room {
+  border: 2px solid var(--gold);
+}
+
+.room:nth-child(3n + 1) {
+  background: #1d2b22;
+}
+
+.room:nth-child(3n + 2) {
+  background: #262035;
+}
+
+.room:nth-child(3n) {
+  background: #2b211d;
+}
+
+.room-accent {
+  position: absolute;
+  top: 7px;
+  left: 8px;
+  right: 8px;
+  height: 10px;
+  background: var(--gold);
+}
+
+.room h3 {
+  margin: 10px 0 18px;
+  color: var(--ink);
+  text-align: center;
+  font-size: 13px;
+  text-transform: uppercase;
+}
+
+.tokens {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+
+.token {
+  min-width: 34px;
+  border-radius: 999px;
+  background: var(--blue);
+  color: var(--bg);
+  padding: 5px 7px;
+  text-align: center;
+  font-size: 11px;
+  font-weight: bold;
+}
+
+.token.human {
+  background: var(--gold);
+}
+
+.token.eliminated {
+  background: var(--grey);
+}
+
+.card-row,
+.bot-hand div {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+
+.card {
+  display: inline-grid;
+  gap: 2px;
+  min-width: 94px;
+  border: 1px solid var(--border);
+  padding: 6px 8px;
+  font-size: 12px;
+}
+
+.card small {
+  color: var(--dim);
+  font-size: 10px;
+}
+
+.card.suspect {
+  background: #351a19;
+  color: #f0b4aa;
+}
+
+.card.weapon {
+  background: #1b2234;
+  color: #bcc8f0;
+}
+
+.card.room {
+  background: #1b3123;
+  color: #b3d8ba;
+}
+
+.reveal,
+.bot-hand {
+  margin-top: 10px;
+  padding: 10px;
+  background: var(--panel-alt);
+  border: 1px solid var(--border);
+}
+
+.reveal small {
+  display: block;
+  color: var(--gold);
+}
+
+.controls,
+.inline-grid {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-top: 10px;
+}
+
+.inline-grid select {
+  width: min(230px, 100%);
+}
+
+.primary,
+.secondary,
+.danger {
+  min-height: 40px;
+  padding: 9px 14px;
+  color: var(--bg);
+  background: var(--gold);
+  font-weight: bold;
+}
+
+.secondary {
+  color: var(--text);
+  background: var(--grey);
+}
+
+.danger {
+  color: var(--ink);
+  background: var(--red);
+}
+
+.wide {
+  width: 100%;
+  margin-top: 8px;
+}
+
+.log-panel,
+.notebook {
+  max-height: calc((100vh - 88px) / 2);
+  overflow: auto;
+}
+
+.log-list {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+  font-family: "Courier New", monospace;
+  font-size: 13px;
+}
+
+.log-list p {
+  margin: 0;
+}
+
+.log-list .suggestion,
+.log-list .win {
+  color: var(--gold-light);
+}
+
+.log-list .reveal {
+  margin: 0;
+  padding: 0;
+  border: 0;
+  background: transparent;
+  color: var(--green);
+}
+
+.log-list .nope,
+.log-list .wrong,
+.log-list .gameover {
+  color: var(--red);
+}
+
+.log-list .alert {
+  color: #f08f64;
+}
+
+.note-head,
+.note-row {
+  display: grid;
+  grid-template-columns: minmax(150px, 1fr) 44px repeat(5, 34px);
+  align-items: center;
+  gap: 2px;
+}
+
+.note-head {
+  color: var(--gold);
+  font-size: 12px;
+  font-weight: bold;
+}
+
+.note-legend {
+  margin: 8px 0;
+  color: var(--dim);
+  font-size: 12px;
+}
+
+.note-row {
+  width: 100%;
+  min-height: 30px;
+  border: 0;
+  background: transparent;
+  color: var(--text);
+  text-align: left;
+}
+
+.note-row:hover:not(:disabled) {
+  background: var(--card);
+}
+
+.note-row span:not(:first-child) {
+  text-align: center;
+  font-family: "Courier New", monospace;
+  font-weight: bold;
+}
+
+.known {
+  color: var(--green);
+}
+
+.ruled {
+  color: var(--red);
+}
+
+.unknown {
+  color: var(--grey);
+}
+
+.final-hands {
+  display: grid;
+  gap: 8px;
+  margin: 12px 0;
+}
+
+@media (max-width: 920px) {
+  .topbar {
+    height: auto;
+    flex-wrap: wrap;
+    padding: 12px;
+  }
+
+  .top-actions {
+    width: 100%;
+    margin-left: 0;
+    justify-content: space-between;
+  }
+
+  .workspace {
+    grid-template-columns: 1fr;
+  }
+
+  .log-panel,
+  .notebook {
+    max-height: none;
+  }
+}
+
+@media (max-width: 620px) {
+  .board {
+    grid-template-columns: 1fr;
+  }
+
+  .room {
+    min-height: 96px;
+  }
+
+  .note-head,
+  .note-row {
+    grid-template-columns: minmax(120px, 1fr) 38px repeat(5, 24px);
+    font-size: 12px;
+  }
+
+  .card {
+    width: 100%;
+  }
+}

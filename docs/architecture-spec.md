@@ -2,7 +2,10 @@
 
 ## Overview
 
-Clue2 implements the classic Clue board game with a constraint-based AI engine, deterministic bot policies, and a Tkinter UI. The architecture separates concerns into distinct modules: game rules, AI reasoning, knowledge management, and user interface.
+Clue2 implements the classic Clue board game with a constraint-based AI engine,
+deterministic bot policies, a Python/Tkinter desktop UI, and a static GitHub
+Pages edition. The architecture separates concerns into distinct modules: game
+rules, AI reasoning, knowledge management, and user interface.
 
 ## System Architecture
 
@@ -31,28 +34,45 @@ graph TB
     end
 ```
 
-#### 1. Game Engine (`game.py`)
+#### 1. GitHub Pages Edition (`index.html`, `web/`)
+- **Files**: `index.html`, `web/clue-web.js`, `web/app.js`, `web/styles.css`
+- **Functions**: Static browser-playable game, DOM UI, JavaScript game engine port, responsive layout, no backend or build step
+
+#### 2. Game Engine (`game.py`)
 - **Classes**: `GameEngine`, `Player`
 - **Functions**: Card dealing, solution generation, turn management, suggestion/accusation processing, event logging, bot coordination
 
-#### 2. Knowledge Base (`knowledge_base.py`)
+#### 3. Knowledge Base (`knowledge_base.py`)
 - **Classes**: `KnowledgeBase`, `ContradictionError`
 - **Functions**: Boolean constraint matrix with logical propagation, iterative constraint propagation to fixed point, disjunctive constraints for unknown card shows
 
-#### 3. Bot AI (`bot.py`)
+#### 4. Bot AI (`bot.py`)
 - **Classes**: `BotPlayer`, `ClueBot`
 - **Functions**: One-step lookahead evaluation, constraint reduction scoring, minimax reasoning, information pressure prioritization, repeat penalties, escape rules
 
-#### 4. User Interface (`app.py`)
+#### 5. Desktop User Interface (`app.py`)
 - **Classes**: `ClueApp`, `ScrollableFrame`
 - **Components**: Board canvas, detective notebook, case ledger, action panel, detective log with Luxury Noir theme
 
-#### 5. Game Constants (`cards.py`)
+#### 6. Game Constants (`cards.py`)
 - **Contents**: Card lists, room adjacency graph, secret passages, UI display constants
 
-#### 6. State Tracking (`state_tracker.py`)
+#### 7. State Tracking (`state_tracker.py`)
 - **Classes**: `GameStateTracker`
 - **Functions**: Append-only event history for bot move evaluation, game simulation, deterministic behavior enforcement
+
+## GitHub Pages Architecture
+
+The online edition is intentionally static so GitHub Pages can host it from the
+repository root. `index.html` loads the browser app with relative paths, and all
+runtime behavior lives in `web/`.
+
+- `web/clue-web.js` ports the card constants, rules engine, bot player, and
+  knowledge propagation to plain JavaScript.
+- `web/app.js` renders setup, board, ledger, notebook, log, movement,
+  suggestion, accusation, human-show, and game-over flows.
+- `web/styles.css` implements the responsive Luxury Noir browser presentation.
+- No server, package manager, build step, or external CDN is required.
 
 ## Data Flow
 

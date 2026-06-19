@@ -7,6 +7,8 @@
 - Customizable player name and bot count
 - Standard Clue rules implementation
 - Turn-based gameplay
+- Browser-playable GitHub Pages edition with no install step
+- Local Python/Tkinter desktop edition for development and offline play
 
 ### Game Mechanics
 - Random card distribution among players
@@ -39,6 +41,18 @@
 - Safe accusations only when solution is certain
 
 ## User Interface Features
+
+### GitHub Pages Edition
+- Static browser app served from `index.html`
+- Runs with relative assets from the repository root
+- No backend, build process, package install, or download required
+- Responsive layout for desktop and mobile browser widths
+- Browser controls for setup, movement, suggestions, accusations, card reveals, notebook marks, and new games
+
+### Desktop Edition
+- Python/Tkinter application launched with `python main.py`
+- Uses the Python rules engine, bot, and knowledge-base modules
+- Preserved for local play, development, and debugging
 
 ### Luxury Noir Theme
 - Dark color palette with black and gold scheme
