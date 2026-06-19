@@ -13,6 +13,10 @@ Open the GitHub Pages edition:
 The browser version runs entirely as static HTML, CSS, and JavaScript. There is
 no server, install step, or download required.
 
+Note: the downloadable/local Python version is the preferred UI experience. The
+GitHub Pages edition is provided so people can try and play the game instantly
+without downloading the project.
+
 ## Requirements
 
 - **Play online**: any modern browser.
@@ -30,6 +34,9 @@ python main.py
 
 `main.py` adds the project root to `sys.path` and starts the desktop UI via
 `clue_game.app`.
+
+This local Tkinter version is the original interface and the recommended way to
+experience the full Luxury Noir UI.
 
 ## Tests
 
